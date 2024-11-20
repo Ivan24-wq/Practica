@@ -1,0 +1,20 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+	int n;
+	cout << "Введите натуральное число n: ";
+	cin >> n;
+
+	double sum = 0.0;
+	for (int i = 1; i <= n; ++i) {
+		sum += pow(-1, i) / (2 * i + 1);
+	}
+
+	cout << "Сумма ряда: " << sum <<endl;
+	return 0;
+
+}
