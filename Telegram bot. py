@@ -1,0 +1,43 @@
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot('7709656061:AAHssCvTcVNcwSVgtRwOwn_nqAEXl-ikLAM')
+
+# Обработчик команды "/start"
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton(" Часы ")  # Создаем кнопку "Часы"
+    markup.add(btn)
+    bot.send_message(
+        message.chat.id,
+        text="Привет, чем могу помочь?",
+        reply_markup=markup
+    )
+
+# Обработчик текстовых сообщений
+@bot.message_handler(content_types=['text'])
+def func(message):
+    if message.text == " Часы ":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)  # Создаем новую клавиатуру
+        back = types.KeyboardButton("Вернуться в главное меню")
+        btn = types.KeyboardButton(" Часы ")
+        markup.add(btn, back)  # Добавляем кнопки
+        bot.send_message(
+            message.chat.id,
+            text="Что тебя здесь интересует? Задай мне вопрос.",
+            reply_markup=markup
+        )
+
+    elif message.text == "Вернуться в главное меню":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn = types.KeyboardButton(" Часы ")  # Создаем кнопку для главного меню
+        markup.add(btn)
+        bot.send_message(
+            message.chat.id,
+            text="Вы вернулись в главное меню. Чем могу помочь?",
+            reply_markup=markup
+        )
+
+# Запускаем бота
+bot.polling(none_stop=True)
