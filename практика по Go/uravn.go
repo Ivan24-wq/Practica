@@ -26,6 +26,6 @@ func main() {
 		x1 = -b / (2 * a)
 		fmt.Printf("Корень уравнения: x1 = x2 = %.2f\n", x1)
 	} else {
-		fmt.Println("Нет корней!")
+		fmt.Println("Нет корней!")  // Если нет корней
 	}
 }
