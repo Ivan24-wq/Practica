@@ -5,7 +5,7 @@ import(
 )
 func main(){
 	var op string
-	var n1, n2, float64
+	var n1, n2, flat64
 	fmt.Println("выберите действие (+ - * /) ")
 	fmt.Scan(&op)
 	fmt.Println("Введите два числа: ")

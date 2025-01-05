@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-    setlocale(LC_ALL, "RU");
+    setlocale(LC_ALL, "Ru");
     float a, b, c, D, x1, x2;
     cout << "Введите числа a, b, c ";
     cin >> a >> b >> c;
