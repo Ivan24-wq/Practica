@@ -62,12 +62,12 @@ async def set_poll_title(message: types.Message):
     await message.answer(f"Название опроса установлено: {message.text}\nТеперь введите вопрос для опроса:", reply_markup=finish_keyboard)
 
 @router.message(lambda message: message.from_user.id in active_poll and active_poll[message.from_user.id]["state"] == "waiting_for_question")
-async def add_poll_question(message: types.Message):
+async def add_poll_questionText(message: types.Message):
     if message.text == "✅ Завершить создание опроса":
         await finish_poll_creation(message)
         return
 
-    active_poll[message.from_user.id]["questions"].append({"question": message.text, "options": []})
+    active_poll[message.from_user.id]["questions"].append({"questionText": message.text, "options": []})
     active_poll[message.from_user.id]["state"] = "waiting_for_options"
     await message.answer(f"Вопрос добавлен: {message.text}\nТеперь введите варианты ответа через запятую:")
 
@@ -108,7 +108,7 @@ async def finish_poll_creation(message: types.Message):
         poll_id = await save_poll_to_db(user_id, title, questions)
 
         poll_summary = "\n".join(
-            f"{i}. {question['question']}\nВарианты: {', '.join(question['options'])}"
+            f"{i}. {question['questionText']}\nВарианты: {', '.join(question['options'])}"
             for i, question in enumerate(questions, 1)
         )
 
@@ -153,7 +153,6 @@ async def handle_poll_selection(callback_query: types.CallbackQuery):
     title = poll_data.get("title", "Опрос без названия")
     questions = poll_data.get("questions", [])
 
-    # Отправляем заголовок опроса
     await bot.send_message(callback_query.from_user.id, f"📋 **{title}**", parse_mode="Markdown")
 
     for question_data in questions:
@@ -168,7 +167,7 @@ async def handle_poll_selection(callback_query: types.CallbackQuery):
                 is_anonymous=False
             )
         else:
-            await bot.send_message(callback_query.from_user.id, f"Вопрос \"{question}\" не имеет вариантов ответа.")
+            await bot.send_message(callback_query.from_user.id, f"Вопрос \"{questionText}\" не имеет вариантов ответа.")
 
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)
