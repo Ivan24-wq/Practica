@@ -157,13 +157,13 @@ async def handle_poll_selection(callback_query: types.CallbackQuery):
     await bot.send_message(callback_query.from_user.id, f"📋 **{title}**", parse_mode="Markdown")
 
     for question_data in questions:
-        question = question_data.get("question", "Вопрос отсутствует")
+        questionText = question_data.get("questionText", "Вопрос отсутствует")
         options = question_data.get("options", [])
 
         if options:
             await bot.send_poll(
                 chat_id=callback_query.from_user.id,
-                question=question,
+                question=questionText,
                 options=options,
                 is_anonymous=False
             )
