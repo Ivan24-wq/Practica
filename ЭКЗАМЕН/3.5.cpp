@@ -13,5 +13,13 @@ int main(){
     string login;
     int balance;
     string line;
-    std::getline(cin, line)
+    std::getline(cin, line);
+
+    for(int i = 0; i < m; ++i){
+        getline(cin, line);
+        size_t  separstorPos = line.find(';');
+        login = line.substr(0, separatorPos);
+        balance = stoi(line.substr(separstorPos + 1));
+        
+    }
 }
